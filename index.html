@@ -29,6 +29,9 @@
         // 设置信号
         let painting = false;
 
+        // 设置上一次的坐标
+        let last;
+
         // 封装画线函数
         function drawLine (x1, y1, x2, y2) {
             ctx.beginPath();
@@ -55,8 +58,10 @@
                 ctx.fill();
             }
         } else {
-            canvas.onmousedown = () => {
+            canvas.onmousedown = (e) => {
                 painting = true;
+                // 鼠标按下时的位置设为last的初始值
+                last = [e.clientX, e.clientY];
             }
 
             canvas.onmouseup = () => {
@@ -76,8 +81,10 @@
                     // ctx.arc(e.clientX, e.clientY, 2, 0, 2 * Math.PI);
                     // 填充为实心圆
                     // ctx.fill();
-                    
-                    drawLine(0, 0, e.clientX, e.clientY)
+
+                    // 画直线
+                    drawLine(last[0], last[1], e.clientX, e.clientY);
+                    last = [e.clientX, e.clientY];
                 }
             }
         }
