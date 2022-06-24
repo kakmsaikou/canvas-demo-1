@@ -51,6 +51,13 @@
         if(!matchMedia('(pointer:fine)').matches) {
             // console.log('触屏设备')
 
+            canvas.ontouchstart = (e) => {
+                let x = e.touches[0].clientX;
+                let y = e.touches[0].clientY;
+                last = [x, y];
+                // console.log(last)
+            }
+
             //触屏移动事件
             canvas.ontouchmove = (e) => {
                 // console.log(e.touches[0].clientX);
@@ -58,10 +65,13 @@
                 let x = e.touches[0].clientX;
                 let y = e.touches[0].clientY;
                 // console.log(x,y)
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, 2 * Math.PI);
-                ctx.stroke();
-                ctx.fill();
+                // ctx.beginPath();
+                // ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                // ctx.stroke();
+                // ctx.fill();
+
+                drawLine(last[0], last[1], x, y);
+                last = [x, y];
             }
         } else {
             canvas.onmousedown = (e) => {
