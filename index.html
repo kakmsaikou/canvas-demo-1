@@ -23,37 +23,55 @@
         // 创建2d图片
         let ctx = canvas.getContext('2d');
 
-        // 填充样色
+        // 填充颜色
         ctx.fillStyle = 'black';
 
         // 设置信号
         let painting = false;
 
-        canvas.onmousedown = () => {
-            painting = true;
-        }
-
-        canvas.onmouseup = () => {
-            painting = false;
-        }
-
-        canvas.onmousemove = (e) => {
-            if (painting) {
-                // console.log(e.clientX)
-                // console.log(e.clientY)
-                
-                
-
-                // 画矩形(起始X坐标, 起始Y坐标, 宽度, 高度)
-                // ctx.fillRect (e.clientX - 3, e.clientY - 3, 6, 6);
-
-                // 画圆形(圆心X坐标, 圆心Y坐标, 半径, 圆弧起始点, 圆弧的终点)
+        // 检测浏览器是否支持鼠标
+        // console.log(matchMedia('(pointer:fine)').matches)
+        if(!matchMedia('(pointer:fine)').matches) {
+            // console.log('触屏设备')
+            //触屏移动事件
+            canvas.ontouchmove = (e) => {
+                // console.log(e.touches[0].clientX);
+                // console.log(e.touches[0].clientY);
+                let x = e.touches[0].clientX;
+                let y = e.touches[0].clientY;
+                // console.log(x,y)
                 ctx.beginPath();
-                ctx.arc(e.clientX, e.clientY, 2, 0, 2 * Math.PI);
+                ctx.arc(x, y, 5, 0, 2 * Math.PI);
                 ctx.stroke();
-                // 填充为实心圆
                 ctx.fill();
-                
+            }
+        } else {
+            canvas.onmousedown = () => {
+                painting = true;
+            }
+
+            canvas.onmouseup = () => {
+                painting = false;
+            }
+
+            canvas.onmousemove = (e) => {
+                if (painting) {
+                    // console.log(e.clientX)
+                    // console.log(e.clientY)
+                    
+                    
+
+                    // 画矩形(起始X坐标, 起始Y坐标, 宽度, 高度)
+                    // ctx.fillRect (e.clientX - 3, e.clientY - 3, 6, 6);
+
+                    // 画圆形(圆心X坐标, 圆心Y坐标, 半径, 圆弧起始点, 圆弧的终点)
+                    ctx.beginPath();
+                    ctx.arc(e.clientX, e.clientY, 2, 0, 2 * Math.PI);
+                    ctx.stroke();
+                    // 填充为实心圆
+                    ctx.fill();
+                    
+                }
             }
         }
     </script>
