@@ -44,7 +44,6 @@
         }
 
         // 检测浏览器是否支持鼠标
-        console.log(matchMedia('(pointer:fine)').matches)
         if(!matchMedia('(pointer:fine)').matches) {
             // 触屏点击事件
             canvas.ontouchstart = (e) => {
