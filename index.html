@@ -5,8 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>画板</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    hello world
+    <div id="canvas"></div>
+    <script>
+        canvas.onclick = (e)=>{
+            // console.log调试大法
+            console.log(e)
+            // console.log(e.clientX)
+            // console.log(e.clientY)
+            // 在页面（document）中创建一个div
+            // 只是创建div，但尚未将它放置于document中
+            // 此时div默认存在在内存里 
+            let div = document.createElement('div')
+            // 给div元素设置绝对定位
+            div.style.position = 'absolute'
+            // 把div元素坐标在鼠标点击的位置
+            div.style.left = e.clientX + 'px'
+            div.style.top = e.clientY + 'px'
+            div.style.border = '1px solid black'
+            div.style.height = '6px'
+            div.style.width = '6px'
+            // 让方形画笔变为圆形画笔
+            div.style.borderRadius = '50%'
+            // 把画笔变为实心的
+            div.style.backgroundColor = 'black'
+            // 让div3左移自身宽度的一半、上移自身宽度的一半，是它中心点处在鼠标箭头尖
+            console.log(parseInt(div.style.height) / 2)
+            div.style.marginLeft = `-${parseInt(div.style.width) / 2}px`
+            div.style.marginTop = `-${parseInt(div.style.height) / 2}px`
+            // 在canvas中添加一个div子元素
+            canvas.appendChild(div)
+        }
+    </script>
 </body>
 </html>
