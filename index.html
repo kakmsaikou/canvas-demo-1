@@ -10,17 +10,14 @@
 <body>
     <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        // 获取用户屏幕的宽高
-        // console.log(document.body.clientWidth)
-
         // 获取canvas对象
         let canvas = document.getElementById('canvas');
 
-        // 获取用户文档的宽高，设置canvas的宽高
+        // 获取用户文档（document）的宽高，设置canvas的宽高
         canvas.width = document.documentElement.clientWidth;
         canvas.height = document.documentElement.clientHeight;
 
-        // 创建2d图片
+        // 创建drawing context
         let ctx = canvas.getContext('2d');
 
         // 填充颜色
@@ -32,7 +29,7 @@
         //把画笔末端设为圆形
         ctx.lineCap = "round";
 
-        // 设置信号
+        // 设置信号，来判断键鼠下鼠标的点击和弹起状态
         let painting = false;
 
         // 设置上一次的坐标
@@ -49,27 +46,17 @@
         // 检测浏览器是否支持鼠标
         console.log(matchMedia('(pointer:fine)').matches)
         if(!matchMedia('(pointer:fine)').matches) {
-            // console.log('触屏设备')
-
+            // 触屏点击事件
             canvas.ontouchstart = (e) => {
                 let x = e.touches[0].clientX;
                 let y = e.touches[0].clientY;
                 last = [x, y];
-                // console.log(last)
             }
 
-            //触屏移动事件
+            // 触屏移动事件
             canvas.ontouchmove = (e) => {
-                // console.log(e.touches[0].clientX);
-                // console.log(e.touches[0].clientY);
                 let x = e.touches[0].clientX;
                 let y = e.touches[0].clientY;
-                // console.log(x,y)
-                // ctx.beginPath();
-                // ctx.arc(x, y, 5, 0, 2 * Math.PI);
-                // ctx.stroke();
-                // ctx.fill();
-
                 drawLine(last[0], last[1], x, y);
                 last = [x, y];
             }
@@ -86,18 +73,6 @@
 
             canvas.onmousemove = (e) => {
                 if (painting) {
-                    // console.log(e.clientX)
-                    // console.log(e.clientY)
-
-                    // 画矩形(起始X坐标, 起始Y坐标, 宽度, 高度)
-                    // ctx.fillRect (e.clientX - 3, e.clientY - 3, 6, 6);
-
-                    // 画圆形(圆心X坐标, 圆心Y坐标, 半径, 圆弧起始点, 圆弧的终点)
-                    // ctx.beginPath();
-                    // ctx.arc(e.clientX, e.clientY, 2, 0, 2 * Math.PI);
-                    // 填充为实心圆
-                    // ctx.fill();
-
                     // 画直线
                     drawLine(last[0], last[1], e.clientX, e.clientY);
                     last = [e.clientX, e.clientY];
