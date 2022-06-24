@@ -8,35 +8,53 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div id="canvas"></div>
+    <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        canvas.onclick = (e)=>{
-            // console.log调试大法
-            console.log(e)
-            // console.log(e.clientX)
-            // console.log(e.clientY)
-            // 在页面（document）中创建一个div
-            // 只是创建div，但尚未将它放置于document中
-            // 此时div默认存在在内存里 
-            let div = document.createElement('div')
-            // 给div元素设置绝对定位
-            div.style.position = 'absolute'
-            // 把div元素坐标在鼠标点击的位置
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px'
-            div.style.border = '1px solid black'
-            div.style.height = '6px'
-            div.style.width = '6px'
-            // 让方形画笔变为圆形画笔
-            div.style.borderRadius = '50%'
-            // 把画笔变为实心的
-            div.style.backgroundColor = 'black'
-            // 让div3左移自身宽度的一半、上移自身宽度的一半，是它中心点处在鼠标箭头尖
-            console.log(parseInt(div.style.height) / 2)
-            div.style.marginLeft = `-${parseInt(div.style.width) / 2}px`
-            div.style.marginTop = `-${parseInt(div.style.height) / 2}px`
-            // 在canvas中添加一个div子元素
-            canvas.appendChild(div)
+        // 获取用户屏幕的宽高
+        // console.log(document.body.clientWidth)
+
+        // 获取canvas对象
+        let canvas = document.getElementById('canvas');
+
+        // 获取用户文档的宽高，设置canvas的宽高
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+
+        // 创建2d图片
+        let ctx = canvas.getContext('2d');
+
+        // 填充样色
+        ctx.fillStyle = 'black';
+
+        // 设置信号
+        let painting = false;
+
+        canvas.onmousedown = () => {
+            painting = true;
+        }
+
+        canvas.onmouseup = () => {
+            painting = false;
+        }
+
+        canvas.onmousemove = (e) => {
+            if (painting) {
+                // console.log(e.clientX)
+                // console.log(e.clientY)
+                
+                
+
+                // 画矩形(起始X坐标, 起始Y坐标, 宽度, 高度)
+                // ctx.fillRect (e.clientX - 3, e.clientY - 3, 6, 6);
+
+                // 画圆形(圆心X坐标, 圆心Y坐标, 半径, 圆弧起始点, 圆弧的终点)
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY, 2, 0, 2 * Math.PI);
+                ctx.stroke();
+                // 填充为实心圆
+                ctx.fill();
+                
+            }
         }
     </script>
 </body>

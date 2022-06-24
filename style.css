@@ -5,6 +5,14 @@
 }
 
 #canvas {
-    height: 100vh;
+    /* 1vw视口（view）的初始包含块的高度（height）的 1%
+    1vh视（view）口的初始包含块的高度（width）的 1% */
+    /* canvas的宽高是它最初始的宽高
+    CSS来调整它的宽高只会拉伸，而不会自适应 */
+    /* width: 100vw;
+    height: 100vh; */
     /* border: 1px solid red; */
+    /* canvas默认为inline元素，无法调整width和height
+    因此要转换为block元素 */
+    display: block;
 }
