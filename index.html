@@ -43,6 +43,12 @@
             ctx.stroke();
         }
 
+        document.documentElement.addEventListener('touchstart', function (event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, false);
+
         // 检测浏览器是否支持鼠标
         if(!matchMedia('(pointer:fine)').matches) {
             // 触屏点击事件
